@@ -1,0 +1,344 @@
+
+<!DOCTYPE <!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Civil War History Trivia</title>
+    <!-- <link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet"> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+
+<body>
+    <br>
+    <br>
+    <hr>
+        <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                  <h3 id="start" class="btn btn-danger">START</h3>
+                  <h1 class="display-4">Civil War History Trivia</h1>
+                  <p id=right></p>
+                  <p id=wrong></p>
+                  <p id=unanswered></p>
+                
+<h1>Time Left: <span id="timeDisplay"></span></h1>
+<h1><span id ="displayAnswer"></span></h1>
+
+<h2><span id="displayQuestion"></span></h2>
+<!-- IMAGE DIV -->
+<button id="button1" class="btn btn-primary" value=""></button>
+<button id="button2" class="btn btn-success" value=""></button>
+<button id="button3" class="btn btn-danger" value=""></button>
+<button id="button4" class="btn btn-warning" value=""></button>
+
+<h2><span id="displayAnswers"></span></h2>
+
+
+</div>
+</div>
+</body>
+<script>
+
+// Questions------------------->>>>
+$(document).ready(function() {
+
+$("#start").on("click", function (){
+        displayQuestion();
+    })
+
+var questionCount = 0;
+var questionsAnswers = [
+{
+  q: 'Where was the first battle of the Civil War (April 12, 1861?)',
+  a: ['Lexington', 'Gettysburg', 'Valley Forge', 'Fort Sumter'],
+  ca: 'Fort Sumter'
+},
+{
+  q: 'Questions 2?',
+  a: ['a2-1', 'a2-2', 'a2-3', 'a2-4'],
+  ca: 'a2-4'
+},
+{
+  q: 'Questions 3?',
+  a: ['a3-1', 'a3-2', 'a3-3', 'a3-4'],
+  ca: 'a3-4'
+},
+{
+  q: 'Questions 4?',
+  a: ['a4-1', 'a4-2', 'a4-3', 'a4-4'],
+  ca: 'a4-4'
+},
+{
+  q: 'Questions 5?',
+  a: ['a5-1', 'a5-2', 'a5-3', 'a5-4'],
+  ca: 'a5-4'
+},
+{
+  q: 'Questions 6?',
+  a: ['a6-1', 'a6-2', 'a6-3', 'a6-4'],
+  ca: 'a6-4'
+},
+{
+  q: 'Questions 7?',
+  a: ['a7-1', 'a7-2', 'a7-3', 'a7-4'],
+  ca: 'a7-4'
+},
+{
+  q: 'Questions 8?',
+  a: ['a8-1', 'a8-2', 'a8-3', 'a8-4'],
+  ca: 'a8-4'
+}
+];
+
+// Key Variables -------------------->
+
+var right = 0;
+var wrong = 0;
+var unanswered = 0;
+
+var number = 10;
+var intervalId;
+
+// Key Functios --------------------->
+
+function correctAnswer()
+  {$("#displayAnswer").text("Correct! The answer is " + questionsAnswers[questionCount].ca)}
+
+function incorrectAnswer ()
+  {$("#displayAnswer").text("Incorrect. The answer is " + questionsAnswers[questionCount].ca)}
+
+function decrement() {
+number--;
+$("#timeDisplay").html("<h2>" + number + "</h2>");
+if (number === 0) {
+    stop();
+    unanswered++;
+    $("#displayAnswer").text("Time's up, the answer is: " + questionsAnswers[questionCount].ca);
+    setTimeout(nextQuestion, 1000 * 5);
+  }}
+// else if(clickedButton = questionsAnswers[questionCount].ca){
+  // correctAnswer();
+
+// else{$("#displayAnswer").text("Time's up, the answer is: " + questionsAnswers[questionCount].ca)
+// };
+
+
+$("button").click(function() {
+    var clickedButton = $(this).val();
+    if(clickedButton === questionsAnswers[questionCount].ca){
+      correctAnswer();
+      stop();
+      right++;
+      setTimeout(nextQuestion, 1000 * 5);
+    }
+    else if(clickedButton !== questionsAnswers[questionCount].ca){
+      stop();
+      incorrectAnswer();
+      wrong++;
+      setTimeout(nextQuestion, 1000 * 5);
+    }
+
+    console.log(right);
+    console.log(wrong);
+    });
+
+function nextQuestion() {
+    questionCount++;
+    displayQuestion();}
+
+
+function stop() {
+clearInterval(intervalId);
+}
+
+function run() {
+        clearInterval(intervalId);
+        number = 10;
+        intervalId = setInterval(decrement, 1000);
+        $("#displayAnswer").text("");
+    }
+  
+
+function displayQuestion() {
+    $("#displayQuestion").text(questionsAnswers[questionCount].q);
+    $("#button1").text(questionsAnswers[questionCount].a[0]);
+    $("#button1").val(questionsAnswers[questionCount].a[0]);
+    $("#button2").text(questionsAnswers[questionCount].a[1]);
+    $("#button2").val(questionsAnswers[questionCount].a[1]);
+    $("#button3").text(questionsAnswers[questionCount].a[2]);
+    $("#button3").val(questionsAnswers[questionCount].a[2]);
+    $("#button4").text(questionsAnswers[questionCount].a[3]);
+    $("#button4").val(questionsAnswers[questionCount].a[3]);
+    run();
+    if(right + wrong + unanswered === 3){
+    $("#displayAnswer").text("Game Over - Press Restart to Play Again")
+    $("#right-answers").text(right);
+    $("#wrong-answers").text(wrong);
+    $("#unanswered").text(unanswered);}
+    else{};
+
+
+
+
+}
+ 
+
+    // // setTimeout(displayQuestion, 1000 * 5);
+    // for(var i =0; i<questionsAnswers[questionCount].a.length; i++){
+    //     $("#displayAnswers").append('<h1>' + questionsAnswers[i] + '</h1>').attr(data-name)}
+    // // }
+
+    // setTimeout(displayQuestion, 1000 * 5);
+
+    
+    
+  
+
+
+
+// // // // // }
+//     setTimeout(nextQuestion, 1000 * 10);
+//     setTimeout(nextQuestion, 1000 * 15);
+// //     nextQuestion();
+// //     setTimeout(nextQuestion, 1000 * 15);
+  })
+</script>
+
+
+</html>
+
+
+<!-- // // Start
+//     Restart
+
+// Start Button - Begin Game
+// When the page starts 30 second timer (If time runs out, you get the question wrong)
+//     Timer on Display counting down
+
+// 1 Question
+// 4 Multiple Choice Options
+//     When mouse is highlighted over box - 
+
+// When the user responds correctly or incorrectly or timer runs out, the right answer comes up with a gif
+
+// Pause for 3 seconds in-between the questions
+
+// Last Page 
+//     Score - Correct Answers and Incorrect Answers, Unanswered
+//     Start Over Options to play again (Resets the Game - doesn't reload) -->
+
+<!-- 
+// html elements
+
+// start function
+
+// timer function
+//     displaying time - countdown
+//     if time runs
+
+// answer function
+//     if correct - show gif
+//     else - show gif incorrectly
+
+// .attt
+// next question function
+// if answer correctly
+// else if answers incorrectly
+// else if timer runs down
+
+// start
+
+// array questions
+//     array of answers
+
+// question count variable
+
+
+// contatiner div
+// div - questions
+// div answer option - appending
+
+// h1 - Contain the timer 
+
+
+// Variables
+// var rightAnswer = 0;
+// var wrongAnswer = 0;
+// var questionCount = 0;
+
+// const questions = [
+// {
+//     q: 'what is the first day of the week?',
+//     a: ['monday', 'frank', 'ham and eggs'],
+//     ca: 'monday'
+// },
+// {
+//   q: 'what is the last day of the June?',
+//   a: ['30th', 'July', 'beans'],
+//   ca: '30th'
+// },
+// {
+//   q: 'who framed roger rabbit?',
+//   a: ['the dude', 'jimmy', '27'],
+//   ca: 'monday'
+// }
+// {
+//   q: 'who framed roger rabbit?',
+//   a: ['the dude', 'jimmy', '27'],
+//   ca: 'monday'
+// }
+// {
+//   q: 'who framed roger rabbit?',
+//   a: ['the dude', 'jimmy', '27'],
+//   ca: 'monday'
+// }
+// {
+//   q: 'who framed roger rabbit?',
+//   a: ['the dude', 'jimmy', '27'],
+//   ca: 'monday'
+// }
+// {
+//   q: 'who framed roger rabbit?',
+//   a: ['the dude', 'jimmy', '27'],
+//   ca: 'monday'
+// }
+// {
+//   q: 'who framed roger rabbit?',
+//   a: ['the dude', 'jimmy', '27'],
+//   ca: 'monday'
+// }
+// ];
+
+// var questionCount = 0;
+
+// questions[question.]
+
+// function next question (){
+//     append 
+// }
+
+// Funtion
+// Next Question - Append from the Question Count (questionCount++ display to the DOMs next question)
+// Checking/Comparing Answers
+// Display Timer on DOM
+// Start & Reset Game
+
+// function nextQuestion () {
+//     $("#display").text(questionCount++);
+
+//     $("#button1").text(question.a[0]);
+//     $("#button2").text(question.a[1]);
+//     $("#button3").text(question.a[2]);
+//     $("#button4").text(question.a[3]);
+// }
+
+
+
+// $(#"display").text(questions[quest])
+// $(#"button1")
+// $(#"choice2") -->
+<!-- // //  // $(#"choice3") -->
+<!-- // // $(#"choice4")  -->
