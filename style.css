@@ -1,3 +1,61 @@
-body{
+.jumbotron{
     text-align: center;
+    background-image: url("images/civil_war_1429877815.jpg");
+    color: whitesmoke;
+    text-shadow: 1.5px 1.5px darkblue; 
+    font-weight: 800;
+    
+}
+
+body{
+    background-color: rgb(10, 4, 80);
+    color: rgb(159, 22, 22);
+    font-family: 'Armata', sans-serif;
+    font-size: 30px;
+    text-shadow: 1px 1px white; 
+}
+
+h2{
+    font-size: 32px;
+}
+#displayAnswer{
+    background-color:white;
+    color: darkred;
+}
+
+#right{
+    color: darkgreen;
+    font-size: 30px;
+    background-color: whitesmoke
+}
+
+.display-4{
+    font-size: 25px;
+}
+
+h1{
+    text-align: center;
+    font-family: 'Armata', sans-serif;
+    font-size: 55px;
+}
+
+#wrong{
+    color: darkred;
+    font-size: 30px;
+    background-color: whitesmoke;
+}
+
+#unanswered{
+    color: darkgoldenrod;
+    font-size: 30px;
+    background-color: whitesmoke;
+}
+
+
+.btn{
+    width: 300px;
+}
+
+.row{
+    text-align:center;
 }
